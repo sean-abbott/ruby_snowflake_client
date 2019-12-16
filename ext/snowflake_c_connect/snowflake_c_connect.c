@@ -1,16 +1,10 @@
 #include <stdlib.h>
 #include <ruby.h>
-#include <snowflake/client.h>
-#include <snowflake/logger.h>
+#include <client.h>
+#include <logger.h>
 #include <cJSON.h>  // remove me
-#include <connection.h>  // remove me
 
 /* ruby public interface is in Init_snowflake_c_connect */
-
-// https://blog.jcoglan.com/2012/07/29/your-first-ruby-native-extension-c/
-// https://docs.ruby-lang.org/en/2.4.0/extension_rdoc.html
-// https://github.com/IDme/wrap_c_example -- gemspec, rakefile
-// someway to get and compile libsnowflake and then move static lib into this gem
 
 // VALUE is in ruby.h as generic pointer
 // m for module
@@ -90,7 +84,7 @@ dump_error(SF_ERROR_STRUCT *error) {
 }
 
 // adaptation of snowflake_column_as_timestamp to just return universal time payload rather than parse into
-// something ruby doesn't understand
+// something ruby doesn't understand. May be worthwhile figuring out how to create ruby Time &/or Date instances
 SF_STATUS
 snowflake_column_as_universal_time(SF_STMT *sfstmt, int idx, float64 *value_ptr) {
     // Get column (pulled guts out of private `_snowflake_get_cJSON_column`)
@@ -221,15 +215,13 @@ return_pair(VALUE first, VALUE second) {
  */
 static VALUE
 snowflake_send_change(VALUE self, VALUE insert_or_delete) {
-    rb_need_block();
-
     SF_CONNECT *snowflake_connection;
     TypedData_Get_Struct(self, SF_CONNECT, &sf_wrapper, snowflake_connection);
 
     SF_STMT *sfstmt = snowflake_stmt(snowflake_connection);
-    status = snowflake_query(sfstmt, insert_or_delete, 0);
+    SF_STATUS status = snowflake_query(sfstmt, StringValueCStr(insert_or_delete), 0);
     if (status != SF_STATUS_SUCCESS) return return_pair(Qnil, dump_error(&(sfstmt->error)));
-    else return_pair(LONG2NUM(snowflake_affected_rows(sfstmt)), Qnil);
+    else return return_pair(LONG2NUM(snowflake_affected_rows(sfstmt)), Qnil);
 }
 
 VALUE
