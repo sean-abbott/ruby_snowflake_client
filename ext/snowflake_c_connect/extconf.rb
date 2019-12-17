@@ -1,7 +1,7 @@
 # from http://blog.zachallett.com/howto-ruby-c-extension-with-a-static-library/
 require 'mkmf'
 
-extension_name = 'ruby_snowflake_connect'
+extension_name = 'ruby_snowflake_client'
 LIB_SNOWFLAKE_DIR = '/libsnowflakeclient'
 
 LIBDIR = RbConfig::CONFIG['libdir']
