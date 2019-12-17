@@ -2,13 +2,14 @@
 require 'mkmf'
 
 extension_name = 'ruby_snowflake_connect'
+LIB_SNOWFLAKE_DIR = '/libsnowflakeclient'
 
 LIBDIR = RbConfig::CONFIG['libdir']
 INCLUDEDIR = RbConfig::CONFIG['includedir']
-HEADER_DIRS = [INCLUDEDIR, '/libsnowflakeclient']
+HEADER_DIRS = [INCLUDEDIR, LIB_SNOWFLAKE_DIR]
 
 # setup constant that is equal to that of the file path that holds that static libraries that will need to be compiled against
-LIB_DIRS = [LIBDIR, '/libsnowflakeclient']
+LIB_DIRS = [LIBDIR, LIB_SNOWFLAKE_DIR]
 
 # array of all libraries that the C extension should be compiled against
 libs = ['-lsnowflakeclient', '-laws-cpp-sdk-core', '-laws-cpp-sdk-s3', '-lazure-storage-lite', '-lcrypto', '-lcurl', '-lssl', '-luuid', '-lz']

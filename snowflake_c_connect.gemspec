@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name    = "snowflake_c_connect"
+  s.name    = "ruby_snowflake_connect"
   s.version = "0.1.0"
   s.summary = "Snowflake connect for Ruby"
   s.author  = "CarGurus"
