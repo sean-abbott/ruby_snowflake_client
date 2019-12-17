@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.files = Dir.glob("ext/**/*.{c,rb}") +
             Dir.glob("lib/**/*.{a,rb}")
 
-  s.extensions << "ext/snowflake_c_connect/extconf.rb"
+  s.extensions << "ext/ruby_snowflake_client/extconf.rb"
 
   s.add_development_dependency "bundler"
   s.add_development_dependency "rake"

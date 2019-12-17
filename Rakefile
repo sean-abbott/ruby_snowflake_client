@@ -3,20 +3,21 @@ require "rubygems/package_task"
 require "rake/extensiontask"
 require "rake/clean"
 
+
 CLEAN.include(
-  "ext/snowflake_c_connect/*.o",
-  "ext/snowflake_c_connect/*.bundle"
+  "ext/ruby_snowflake_client/*.o",
+  "ext/ruby_snowflake_client/*.bundle"
 )
 
 CLOBBER.include(
-  "ext/snowflake_c_connect/Makefile",
+  "ext/ruby_snowflake_client/Makefile",
   "pkg"
 )
 
 BUILD_DIR = 'build'
 
 def gem_spec
-    @gem_spec ||= Gem::Specification.load('snowflake_c_connect.gemspec')
+    @gem_spec ||= Gem::Specification.load('ruby_snowflake_client.gemspec')
 end
 
 Gem::PackageTask.new(gem_spec) do |pkg|
@@ -24,10 +25,14 @@ Gem::PackageTask.new(gem_spec) do |pkg|
   pkg.need_tar = true
 end
 
-Rake::ExtensionTask.new('snowflake_c_connect', gem_spec) do |ext|
-   ext.ext_dir = './ext/snowflake_c_connect'
+Rake::ExtensionTask.new('ruby_snowflake_client', gem_spec) do |ext|
+   ext.ext_dir = './ext/ruby_snowflake_client'
    ext.tmp_dir = BUILD_DIR
    ext.config_script = "extconf.rb"
+end
+
+task :build_libsnowflakeclient do
+    system("./build_libsnowflake.sh")
 end
 
 task :build   => [:clean, :compile]

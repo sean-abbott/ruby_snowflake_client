@@ -2,9 +2,9 @@
 #include <ruby.h>
 #include <client.h>
 #include <logger.h>
-#include <cJSON.h>  // remove me
+#include <cJSON.h>
 
-/* ruby public interface is in Init_snowflake_c_connect */
+/* ruby public interface is in Init_ruby_snowflake_client */
 
 // VALUE is in ruby.h as generic pointer
 // m for module
@@ -280,7 +280,7 @@ snowflake_connection_port(VALUE self) {
 }
 
 void
-Init_snowflake_c_connect() {
+Init_ruby_snowflake_client() {
     rb_cEncapsulateSfConnect = rb_define_class("SnowflakeCConnection", rb_cData);
 
     rb_define_alloc_func(rb_cEncapsulateSfConnect, sf_wrapper_alloc);

@@ -4,3 +4,5 @@ build/
 *.a
 *.gem
 /tmp
+.DS_Store
+lib/*.h

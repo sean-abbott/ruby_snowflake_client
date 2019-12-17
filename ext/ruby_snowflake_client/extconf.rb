@@ -2,7 +2,7 @@
 require 'mkmf'
 
 extension_name = 'ruby_snowflake_client'
-LIB_SNOWFLAKE_DIR = '/libsnowflakeclient'
+LIB_SNOWFLAKE_DIR = "#{File.dirname(__FILE__)}/../../lib"
 
 LIBDIR = RbConfig::CONFIG['libdir']
 INCLUDEDIR = RbConfig::CONFIG['includedir']
