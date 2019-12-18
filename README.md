@@ -3,8 +3,19 @@
 A small gem wrapping [libsnowflakeclient](https://github.com/snowflakedb/libsnowflakeclient) whose goal is to 
 stream query results so as to not allocate memory for more than a row at a time.
 
-Build:
+Build libsnowflakeclient and copy headers and lib files into this project: 
+``` shell script
+UNIVERSAL=false LIB_SNOWFLAKE_DIR=../libsnowflakeclient/ rake build_libsnowflakeclient
+```
+where `UNIVERSAL` is only required on macos to prevent it trying to create the deprecated 32bit
+binary.
+
+Build this library (requires the above)
+
 `rake build`
+
+Install this library (there are other means):
+`gem install pkg/ruby_snowflake_client-0.1.0.gem`
 
 Usage:
 ``` ruby
