@@ -141,7 +141,8 @@ snowflake_query_interface(VALUE self, VALUE query) {
     VALUE row[num_fields];
 
     while ((status = snowflake_fetch(sfstmt)) == SF_STATUS_SUCCESS) {
-        for (int i = 0; i < num_fields; ++i) {
+        int i;
+        for (i = 0; i < num_fields; ++i) {
             // universally handle null fields alike
             sf_bool is_null;
             snowflake_column_is_null(sfstmt, i + 1, &is_null);
