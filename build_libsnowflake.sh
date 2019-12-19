@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Builds libsnowflakeclient and pulls its headers and static archives into this library
+# assumes libsnowflakeclient is already cloned locally either in parallel with this library OR set env var LIB_SNOWFLAKE_DIR
 set -x # echo on for debugging
 
 RUBY_SNOWFLAKE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"

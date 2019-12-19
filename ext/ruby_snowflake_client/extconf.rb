@@ -2,12 +2,13 @@
 require 'mkmf'
 
 extension_name = 'ruby_snowflake_client'
-LIB_SNOWFLAKE_DIR = "#{File.dirname(__FILE__)}/../../lib"
+LIB_SNOWFLAKE_DIR = "#{File.dirname(__FILE__)}/../../lib"  # TODO not working
 
 LIBDIR = RbConfig::CONFIG['libdir']
 INCLUDEDIR = RbConfig::CONFIG['includedir']
 HEADER_DIRS = [INCLUDEDIR, LIB_SNOWFLAKE_DIR]
 append_cflags('-fPIC')
+puts HEADER_DIRS  # TODO remove
 
 # setup constant that is equal to that of the file path that holds that static libraries that will need to be compiled against
 LIB_DIRS = [LIBDIR, LIB_SNOWFLAKE_DIR]
