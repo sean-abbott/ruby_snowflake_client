@@ -23,7 +23,7 @@ size_t sf_wrapper_size(const void *sf) {
 static const rb_data_type_t sf_wrapper = {
         .wrap_struct_name = "SF_CONNECT",
         .function = {
-                .dmark = NULL,  // TODO add all the connection args as ruby readable instance vars and then impl this method
+                .dmark = NULL,
                 .dfree = sf_wrapper_free,
                 .dsize = sf_wrapper_size,
         },
@@ -225,6 +225,12 @@ snowflake_send_change(VALUE self, VALUE insert_or_delete) {
     else return return_pair(LONG2NUM(snowflake_affected_rows(sfstmt)), Qnil);
 }
 
+static VALUE
+close_snowflake_connection(VALUE self) {
+    SF_STATUS status = snowflake_global_term();
+    return (status == SF_STATUS_SUCCESS) ? Qtrue : Qfalse;
+}
+
 VALUE
 snowflake_connection_get_field(VALUE self, SF_ATTRIBUTE field_name) {
     SF_CONNECT *sf;
@@ -289,6 +295,7 @@ Init_ruby_snowflake_client() {
     rb_define_method(rb_cEncapsulateSfConnect, "initialize", sf_wrapper_m_initialize, 10);
     rb_define_method(rb_cEncapsulateSfConnect, "snowflake_query", snowflake_query_interface, 1);
     rb_define_method(rb_cEncapsulateSfConnect, "snowflake_update", snowflake_send_change, 1);
+    rb_define_method(rb_cEncapsulateSfConnect, "close", close_snowflake_connection, 0);
 
     rb_define_method(rb_cEncapsulateSfConnect, "host", snowflake_connection_host, 0);
     rb_define_method(rb_cEncapsulateSfConnect, "account", snowflake_connection_account, 0);
