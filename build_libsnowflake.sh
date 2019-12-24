@@ -11,6 +11,10 @@ CURDIR=$PWD
 #./configure --static
 #CFLAGS="-fPIC" make
 #cd $CURDIR
+pushd $LIB_SNOWFLAKE_DIR
+find . -name libz.a -exec rm {} \;
+./scripts/build_zlib.sh
+popd
 
 #source $LIB_SNOWFLAKE_DIR/scripts/build_dependencies.sh -t Release
 $LIB_SNOWFLAKE_DIR/scripts/build_libsnowflakeclient.sh -s -t Release
