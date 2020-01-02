@@ -33,7 +33,7 @@ static const rb_data_type_t sf_wrapper = {
 
 // ruby calls these 2 methods to create a new instance
 VALUE sf_wrapper_alloc(VALUE self) {
-    SF_STATUS status = snowflake_global_init(NULL, SF_LOG_DEBUG, NULL);  // arg0 is const char *log_path
+    SF_STATUS status = snowflake_global_init(NULL, SF_LOG_TRACE, NULL);  // arg0 is const char *log_path
     if (status != SF_STATUS_SUCCESS) {
         rb_raise(rb_eIOError, "%d", status);
     }
