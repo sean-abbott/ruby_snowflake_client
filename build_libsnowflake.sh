@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ueo pipefail
 
 # Builds libsnowflakeclient and pulls its headers and static archives into this library
 # assumes libsnowflakeclient is already cloned locally either in parallel with this library OR set env var LIB_SNOWFLAKE_DIR
@@ -11,12 +12,10 @@ CURDIR=$PWD
 #./configure --static
 #CFLAGS="-fPIC" make
 #cd $CURDIR
-pushd $LIB_SNOWFLAKE_DIR
+#pushd $LIB_SNOWFLAKE_DIR
 #find . -name libz.a -exec rm {} \;
 #./scripts/build_zlib.sh
-cd deps-build/linux/aws
-ln -s lib64/ lib
-popd
+#popd
 
 #source $LIB_SNOWFLAKE_DIR/scripts/build_dependencies.sh -t Release
 $LIB_SNOWFLAKE_DIR/scripts/build_libsnowflakeclient.sh -s -t Release
