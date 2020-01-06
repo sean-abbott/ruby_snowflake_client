@@ -14,7 +14,8 @@ puts HEADER_DIRS  # TODO remove
 LIB_DIRS = [LIBDIR, LIB_SNOWFLAKE_DIR]
 
 # array of all libraries that the C extension should be compiled against
-libs = ['-lsnowflakeclient', '-laws-cpp-sdk-core', '-laws-cpp-sdk-s3', '-lazure-storage-lite', '-lcrypto', '-lcurl', '-lssl', '-luuid', '-lz']
+#libs = ['-lsnowflakeclient', '-laws-cpp-sdk-core', '-laws-cpp-sdk-s3', '-lazure-storage-lite', '-lcrypto', '-lcurl', '-lssl', '-luuid', '-lz']
+libs = ['-lsnowflakeclient', '-laws-cpp-sdk-core', '-laws-cpp-sdk-s3', '-lazure-storage-lite', '-lcurl', '-luuid', '-lz', '-Wl,--whole-archive /ruby_snowflake_client/libsnowflakeclient/deps-build/linux/openssl/lib/libssl.a /ruby_snowflake_client/libsnowflakeclient/deps-build/linux/openssl/lib/libcrypto.a -Wl,--no-whole-archive']
 
 dir_config('snowflakeclient', HEADER_DIRS, LIB_DIRS)
 
